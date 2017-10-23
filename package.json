@@ -1,0 +1,8 @@
+{
+  "name": "agile-contest-sms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nadavami/agile-contest-sms.git",
+  "author": "Nadav Ami <nadav@nadavami.com>",
+  "license": "MIT"
+}
