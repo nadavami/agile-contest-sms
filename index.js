@@ -1,1 +1,3 @@
-console.log('Goodbye, World')
+const Server = require('./src/server')
+const server = new Server()
+server.start()

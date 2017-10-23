@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "lint": "node_modules/.bin/standard",
-    "test": "yarn lint && node_modules/.bin/jest"
+    "test": "yarn lint && node_modules/.bin/jest --forceExit --no-cache"
   },
   "repository": "https://github.com/nadavami/agile-contest-sms.git",
   "author": "Nadav Ami <nadav@nadavami.com>",
   "license": "MIT",
   "devDependencies": {
     "jest": "^21.2.1",
+    "request-promise-native": "^1.0.5",
     "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
   }
 }
