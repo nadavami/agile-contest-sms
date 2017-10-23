@@ -3,6 +3,17 @@ language: node_js
 node_js:
   - "8"
 
+deploy:
+  provider: bluemixcloudfoundry
+  skip_cleanup: true
+  manifest: manifest.yml
+  username: $BLUEMIX_USER
+  password: $BLUEMIX_APIKEY
+  organization: $BLUEMIX_ORGANIZATION
+  space: $BLUEMIX_SPACE
+  on:
+    branch: master
+
 branches:
  only:
    - master
