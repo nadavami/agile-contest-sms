@@ -18,6 +18,10 @@ app.use('/api/incoming', (req, res) => {
   res.send('')
 })
 
+app.use('/api/participants', (req, res) => {
+  res.json(participants.list)
+})
+
 app.use('/', (req, res) => {
   res.send('Hello, world!')
 })

@@ -1,8 +1,8 @@
-const app = require('./app')
 const http = require('http')
 
 class Server {
   constructor () {
+    let app = require('./app')
     this.instance = http.createServer(app)
     this._port = process.env.PORT
   }

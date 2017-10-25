@@ -6,6 +6,10 @@ class Participants {
   add (participant) {
     this._participants.push(participant)
   }
+
+  get list () {
+    return [...this._participants]
+  }
 }
 
 module.exports = Participants
