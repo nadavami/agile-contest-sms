@@ -15,7 +15,7 @@ app.use('/api/incoming', (req, res) => {
   }
   console.log('Incoming Message', JSON.stringify(participant))
   participants.add(participant)
-  res.send('')
+  res.send('Thank you for registering!')
 })
 
 app.use('/api/participants', (req, res) => {

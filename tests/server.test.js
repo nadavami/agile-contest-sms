@@ -41,6 +41,7 @@ describe('Test server', () => {
     }).then(data => data)
 
     await expect(response).resolves.toHaveProperty('statusCode', 200)
+    await expect(response).resolves.toHaveProperty('body', 'Thank you for registering!')
   })
 
   test('Can receive list of participants on /api/participants', async () => {
