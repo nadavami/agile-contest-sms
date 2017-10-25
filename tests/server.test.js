@@ -26,10 +26,9 @@ describe('Test server', () => {
     let response = request({
       uri: `http://localhost:${server.port}/api/incoming`,
       method: 'POST',
-      body: {
+      form: {
         sampleData: true
       },
-      json: true,
       resolveWithFullResponse: true
     }).then(data => data)
 
