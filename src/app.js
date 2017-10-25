@@ -1,4 +1,5 @@
 const express = require('express')
+const MessagingResponse = require('twilio').twiml.MessagingResponse
 const bodyParser = require('body-parser')
 const Participants = require('./participants')
 
@@ -15,7 +16,12 @@ app.use('/api/incoming', (req, res) => {
   }
   console.log('Incoming Message', JSON.stringify(participant))
   participants.add(participant)
-  res.send('Thank you for registering!')
+
+  let response = new MessagingResponse()
+  response.message('Thank you for registering!')
+
+  res.setHeader('content-type', 'text/xml')
+  res.end(response.toString())
 })
 
 app.use('/api/participants', (req, res) => {
