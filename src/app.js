@@ -1,5 +1,8 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 let app = express()
+
+app.use(bodyParser.json())
 
 app.use('/api/incoming', (req, res) => {
   console.log('incoming body', req.body)

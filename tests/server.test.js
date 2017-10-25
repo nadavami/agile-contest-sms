@@ -25,10 +25,14 @@ describe('Test server', () => {
     server.start()
     let response = request({
       uri: `http://localhost:${server.port}/api/incoming`,
-      method: 'get',
+      method: 'POST',
+      body: {
+        sampleData: true
+      },
+      json: true,
       resolveWithFullResponse: true
-    }).then(data => data.statusCode)
+    }).then(data => data)
 
-    await expect(response).resolves.toBe(200)
+    await expect(response).resolves.toHaveProperty('statusCode', 200)
   })
 })
