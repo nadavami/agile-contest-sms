@@ -27,7 +27,9 @@ describe('Test server', () => {
       uri: `http://localhost:${server.port}/api/incoming`,
       method: 'POST',
       form: {
-        sampleData: true
+        From: '+1514NPANXX',
+        Body: 'A Message!',
+        MessageSid: 'SMe37a97021a8df7632857a298b0a3e343'
       },
       resolveWithFullResponse: true
     }).then(data => data)

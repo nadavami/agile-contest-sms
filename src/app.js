@@ -1,12 +1,21 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const Participants = require('./participants')
+
 let app = express()
+let participants = new Participants()
 
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/incoming', (req, res) => {
-  console.log('incoming body', req.body)
-  res.send()
+  let participant = {
+    id: req.body.MessageSid,
+    phone: req.body.From,
+    message: req.body.Body
+  }
+  console.log('Incoming Message', JSON.stringify(participant))
+  participants.add(participant)
+  res.send('')
 })
 
 app.use('/', (req, res) => {
