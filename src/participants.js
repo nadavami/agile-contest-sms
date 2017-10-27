@@ -18,10 +18,14 @@ class Participants {
   }
 
   get winner () {
-    var id = Math.floor(Math.random() * this._participants.length)
-    var winner = this._participants[id]
-    this._participants.splice(id, 1)
+    let randomIndex = Math.floor(Math.random() * this._participants.length)
+    let winner = this._participants[randomIndex]
+    this._removeWinnerFromList(randomIndex)
     return winner
+  }
+
+  _removeWinnerFromList (winnerIndex) {
+    this._participants.splice(winnerIndex, 1)
   }
 }
 
