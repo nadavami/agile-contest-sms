@@ -15,11 +15,12 @@ app.use('/api/incoming', (req, res) => {
     message: req.body.Body
   }
   console.log('Incoming Message', JSON.stringify(participant))
-  participants.add(participant)
-
+  let responseText = 'Thank you for registering!'
+  if (!participants.add(participant)) {
+    responseText = 'Error registering, please try again!'
+  }
   let response = new MessagingResponse()
-  response.message('Thank you for registering!')
-
+  response.message(responseText)
   res.setHeader('content-type', 'text/xml')
   res.end(response.toString())
 })

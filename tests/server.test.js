@@ -17,6 +17,20 @@ function sendIncomingMessage (serverPort) {
   return response
 }
 
+function sendInvalidIncomingMessage (serverPort) {
+  let response = request({
+    uri: `http://localhost:${serverPort}/api/incoming`,
+    method: 'POST',
+    form: {
+      Body: 'A Message!',
+      MessageSid: 'SMe37a97021a8df7632857a298b0a3e343'
+    },
+    resolveWithFullResponse: true
+  }).then(data => data)
+
+  return response
+}
+
 describe('Test server', () => {
   beforeEach(() => {
     jest.resetModules()
@@ -39,7 +53,7 @@ describe('Test server', () => {
     expect(portBeforeStart).toThrowError('Server not started')
   })
 
-  test('Can receive external payload on /api/incoming', async () => {
+  test('Can receive external payload on /api/incoming and return thank you if correct', async () => {
     process.env.PORT = 0
     let server = new Server()
     server.start()
@@ -49,6 +63,18 @@ describe('Test server', () => {
     await expect(response).resolves.toHaveProperty('statusCode', 200)
     await expect(response).resolves.toHaveProperty('headers.content-type', 'text/xml')
     await expect(response).resolves.toHaveProperty('body', expect.stringMatching(/<Response><Message>Thank you for registering!<\/Message><\/Response>/))
+  })
+
+  test('Can receive external payload on /api/incoming and return error if not correct', async () => {
+    process.env.PORT = 0
+    let server = new Server()
+    server.start()
+
+    let response = sendInvalidIncomingMessage(server.port)
+
+    await expect(response).resolves.toHaveProperty('statusCode', 200)
+    await expect(response).resolves.toHaveProperty('headers.content-type', 'text/xml')
+    await expect(response).resolves.toHaveProperty('body', expect.stringMatching(/<Response><Message>Error registering, please try again!<\/Message><\/Response>/))
   })
 
   test('Can receive list of participants on /api/participants', async () => {
