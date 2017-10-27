@@ -28,6 +28,10 @@ app.use('/api/participants', (req, res) => {
   res.json(participants.list)
 })
 
+app.use('/api/winner', (req, res) => {
+  res.json(participants.winner)
+})
+
 app.use('/', (req, res) => {
   res.send('Hello, world!')
 })

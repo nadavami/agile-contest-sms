@@ -66,4 +66,22 @@ describe('Test server', () => {
     }]
     await expect(response).resolves.toEqual(expect.arrayContaining(participant))
   })
+
+  test('Can receive a participant on /api/winner as a winner', async () => {
+    process.env.PORT = 0
+    let server = new Server()
+    server.start()
+
+    await sendIncomingMessage(server.port)
+
+    let response = request.get(`http://localhost:${server.port}/api/winner`).then(data => JSON.parse(data))
+    let participant = {
+      id: 'SMe37a97021a8df7632857a298b0a3e343',
+      phone: '+1NPANXXXXXX',
+      message: 'A Message!'
+    }
+    await expect(response).resolves.toEqual(participant)
+    let responseList = request.get(`http://localhost:${server.port}/api/participants`).then(data => JSON.parse(data))
+    await expect(responseList).resolves.toEqual(expect.arrayContaining([]))
+  })
 })
