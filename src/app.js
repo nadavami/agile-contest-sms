@@ -1,10 +1,11 @@
 const express = require('express')
-const MessagingResponse = require('twilio').twiml.MessagingResponse
 const bodyParser = require('body-parser')
 const Participants = require('./participants')
+const Messaging = require('./messaging')
 
 let app = express()
 let participants = new Participants()
+let messaging = new Messaging()
 
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -19,10 +20,9 @@ app.use('/api/incoming', (req, res) => {
   if (!participants.add(participant)) {
     responseText = 'Error registering, please try again!'
   }
-  let response = new MessagingResponse()
-  response.message(responseText)
-  res.setHeader('content-type', 'text/xml')
-  res.end(response.toString())
+  messaging.send(participant.phone, responseText).catch(e => console.log(e))
+  res.status(200)
+  res.end()
 })
 
 app.use('/api/participants', (req, res) => {

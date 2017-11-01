@@ -2,6 +2,8 @@
 const Server = require('../src/server')
 const request = require('request-promise-native')
 
+jest.mock('twilio')
+
 function sendIncomingMessage (serverPort) {
   let response = request({
     uri: `http://localhost:${serverPort}/api/incoming`,
@@ -59,10 +61,13 @@ describe('Test server', () => {
     server.start()
 
     let response = sendIncomingMessage(server.port)
-
+    let messageResponse = new Promise(resolve => {
+      process.on('twilioMessage', message => resolve(message))
+    })
     await expect(response).resolves.toHaveProperty('statusCode', 200)
-    await expect(response).resolves.toHaveProperty('headers.content-type', 'text/xml')
-    await expect(response).resolves.toHaveProperty('body', expect.stringMatching(/<Response><Message>Thank you for registering!<\/Message><\/Response>/))
+    await expect(messageResponse).resolves.toHaveProperty('to', '+1NPANXXXXXX')
+    await expect(messageResponse).resolves.toHaveProperty('from', '+1NPANXXXXXX')
+    await expect(messageResponse).resolves.toHaveProperty('body', expect.stringMatching(/thank you/i))
   })
 
   test('Can receive external payload on /api/incoming and return error if not correct', async () => {
@@ -73,8 +78,6 @@ describe('Test server', () => {
     let response = sendInvalidIncomingMessage(server.port)
 
     await expect(response).resolves.toHaveProperty('statusCode', 200)
-    await expect(response).resolves.toHaveProperty('headers.content-type', 'text/xml')
-    await expect(response).resolves.toHaveProperty('body', expect.stringMatching(/<Response><Message>Error registering, please try again!<\/Message><\/Response>/))
   })
 
   test('Can receive list of participants on /api/participants', async () => {
