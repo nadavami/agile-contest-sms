@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 class Participants {
   constructor () {
     this._participants = []
@@ -15,14 +17,9 @@ class Participants {
   }
 
   get winner () {
-    let randomIndex = Math.floor(Math.random() * this._participants.length)
-    let winner = this._participants[randomIndex]
-    this._removeWinnerFromList(randomIndex)
+    let winner = _.sample(this._participants)
+    _.remove(this._participants, winner)
     return winner
-  }
-
-  _removeWinnerFromList (winnerIndex) {
-    this._participants.splice(winnerIndex, 1)
   }
 }
 
