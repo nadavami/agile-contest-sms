@@ -17,9 +17,7 @@ app.use('/api/incoming', (req, res) => {
   }
   console.log('Incoming Message', JSON.stringify(participant))
   let responseText = 'Thank you for registering!'
-  if (!participants.add(participant)) {
-    responseText = 'Error registering, please try again!'
-  }
+  participants.add(participant).catch(e => console.log(e))
   messaging.send(participant.phone, responseText).catch(e => console.log(e))
   res.status(200)
   res.end()

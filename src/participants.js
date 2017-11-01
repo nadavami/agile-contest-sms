@@ -3,14 +3,11 @@ class Participants {
     this._participants = []
   }
 
-  add (participant) {
-    if (typeof participant.phone === 'undefined' || typeof participant.message === 'undefined' || typeof participant.id === 'undefined') {
-      console.log('Invalid participant fields: ')
-      console.log(participant)
-      return false
+  async add (participant) {
+    if (!participant.phone || !participant.message || !participant.id) {
+      throw new Error('Invalid participant')
     }
     this._participants.push(participant)
-    return true
   }
 
   get list () {
