@@ -109,8 +109,25 @@ describe('Test server', () => {
       phone: '+1NPANXXXXXX',
       message: 'A Message!'
     }
+    let messageResponse = new Promise(resolve => {
+      process.on('twilioMessage', message => resolve(message))
+    })
+
     await expect(response).resolves.toEqual(participant)
+    await expect(messageResponse).resolves.toHaveProperty('to', '+1NPANXXXXXX')
+    await expect(messageResponse).resolves.toHaveProperty('from', '+1NPANXXXXXX')
+    await expect(messageResponse).resolves.toHaveProperty('body', expect.stringMatching(/congratulations/i))
+
     let responseList = request.get(`http://localhost:${server.port}/api/participants`).then(data => JSON.parse(data))
     await expect(responseList).resolves.toEqual(expect.arrayContaining([]))
+  })
+
+  test('Can receive error message when no winenrs left on /api/winner', async () => {
+    process.env.PORT = 0
+    let server = new Server()
+    server.start()
+
+    let response = request.get(`http://localhost:${server.port}/api/winner`).then(data => data)
+    await expect(response).resolves.toEqual(expect.stringMatching(/no winners/i))
   })
 })

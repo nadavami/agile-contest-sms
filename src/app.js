@@ -28,7 +28,14 @@ app.use('/api/participants', (req, res) => {
 })
 
 app.use('/api/winner', (req, res) => {
-  res.json(participants.winner)
+  let winner = participants.winner
+  if (!winner) {
+    res.status(200)
+    res.end('No winners left')
+  }
+  let responseText = 'Congratulations, you won!\nCome pick-up your prize!🏆'
+  messaging.send(winner.phone, responseText)
+  res.json(winner)
 })
 
 app.use('/', (req, res) => {
