@@ -6,3 +6,5 @@ applications:
   name: agile-contest-sms
   host: agile-contest-sms
   disk_quota: 1024M
+services:
+  - redis-cloud-agile
