@@ -12,7 +12,7 @@ class Participants {
     this._participants[participant.phone] = participant
   }
 
-  get list () {
+  async list () {
     return {...this._participants}
   }
 

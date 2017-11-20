@@ -23,8 +23,9 @@ app.use('/api/incoming', (req, res) => {
   res.end()
 })
 
-app.use('/api/participants', (req, res) => {
-  res.json(participants.list)
+app.use('/api/participants', async (req, res) => {
+  let participantsList = await participants.list()
+  return res.json(participantsList)
 })
 
 app.use('/api/winner', async (req, res) => {
