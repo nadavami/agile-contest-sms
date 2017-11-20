@@ -88,12 +88,12 @@ describe('Test server', () => {
     await sendIncomingMessage(server.port)
 
     let response = request.get(`http://localhost:${server.port}/api/participants`).then(data => JSON.parse(data))
-    let participant = [{
+    let participant = {
       id: 'SMe37a97021a8df7632857a298b0a3e343',
       phone: '+1NPANXXXXXX',
       message: 'A Message!'
-    }]
-    await expect(response).resolves.toEqual(expect.arrayContaining(participant))
+    }
+    await expect(response).resolves.toEqual(expect.objectContaining({'+1NPANXXXXXX': participant}))
   })
 
   test('Can receive a participant on /api/winner as a winner', async () => {
