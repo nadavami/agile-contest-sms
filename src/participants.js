@@ -16,7 +16,7 @@ class Participants {
     return {...this._participants}
   }
 
-  get winner () {
+  async winner () {
     let winnerID = _.sample(Object.keys(this._participants))
     let winner = this._participants[winnerID]
     delete this._participants[winnerID]

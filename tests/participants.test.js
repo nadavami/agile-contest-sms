@@ -41,9 +41,9 @@ describe('Test participants', () => {
     }
     participants.add(participant1)
     participants.add(participant2)
-    let winner = participants.winner
+    let winner = await participants.winner()
     let participantsListLen = Object.keys(participants.list).length
-    await expect([participant1, participant2]).toContain(await winner)
+    await expect([participant1, participant2]).toContain(winner)
     await expect(await participantsListLen).toBe(1)
   })
   test('Cannot add an invalid participant', async () => {

@@ -27,15 +27,15 @@ app.use('/api/participants', (req, res) => {
   res.json(participants.list)
 })
 
-app.use('/api/winner', (req, res) => {
-  let winner = participants.winner
+app.use('/api/winner', async (req, res) => {
+  let winner = await participants.winner()
   if (!winner) {
     res.status(200)
-    res.end('No winners left')
+    return res.end('No winners left')
   }
   let responseText = 'Congratulations, you won!\nCome pick-up your prize!🏆'
   messaging.send(winner.phone, responseText)
-  res.json(winner)
+  return res.json(winner)
 })
 
 app.use('/', (req, res) => {
