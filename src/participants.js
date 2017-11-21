@@ -5,11 +5,11 @@ class Participants {
     this._participants = {}
   }
 
-  async add (participant) {
-    if (!participant.phone || !participant.message || !participant.id) {
-      throw new Error('Invalid participant')
+  async add (entry) {
+    if (!entry.phone || !entry.message || !entry.id) {
+      throw new Error('Invalid entry')
     }
-    this._participants[participant.phone] = participant
+    this._participants[entry.phone] = entry
   }
 
   async list () {
