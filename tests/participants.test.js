@@ -9,8 +9,8 @@ describe('Test participants', () => {
   test('Can create empty', async () => {
     process.env.PORT = 0
     let participants = new Participants()
-    let participantsList = participants.list
-    await expect(await participantsList).toEqual(expect.arrayContaining([]))
+    let participantsList = await participants.list()
+    await expect(participantsList).toEqual(expect.arrayContaining([]))
   })
 
   test('Can create and add to it', async () => {
@@ -25,6 +25,7 @@ describe('Test participants', () => {
     let participantsList = await participants.list()
     await expect(participantsList).toEqual(expect.objectContaining({'+1NPANXXXXXX': participant}))
   })
+
   test('Can draw a winner and remove it', async () => {
     process.env.PORT = 0
     let participants = new Participants()
@@ -46,6 +47,7 @@ describe('Test participants', () => {
     await expect([participant1, participant2]).toContain(winner)
     await expect(Object.keys(participantsList).length).toBe(1)
   })
+
   test('Cannot add an invalid participant', async () => {
     process.env.PORT = 0
     let participants = new Participants()
@@ -54,7 +56,8 @@ describe('Test participants', () => {
       message: 'A Message!'
     }
     participants.add(participant1)
-    let participantsListLen = Object.keys(participants.list).length
-    await expect(await participantsListLen).toBe(0)
+    let participantsList = await participants.list()
+    let participantsListLen = Object.keys(participantsList).length
+    await expect(participantsListLen).toBe(0)
   })
 })
