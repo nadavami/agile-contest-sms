@@ -18,6 +18,7 @@ app.use('/api/incoming', (req, res) => {
       console.log('Incoming Message', hash(participant))
     })
     .catch(e => console.error(e))
+  res.type('text/plain')
   res.status(200)
   res.end()
 })
