@@ -23,7 +23,7 @@ describe('Test participants', () => {
     }
     participants.add(participant)
     let participantsList = await participants.list()
-    await expect(participantsList).toEqual(expect.objectContaining({'+1NPANXXXXXX': participant}))
+    await expect(participantsList).toEqual(expect.objectContaining({'14956983843c57fc152dc52ed09b0178bc222ca8d6aa745eec7440d953c6ec34': participant}))
   })
 
   test('Can draw a winner and remove it', async () => {

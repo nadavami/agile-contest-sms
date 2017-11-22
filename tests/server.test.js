@@ -93,7 +93,7 @@ describe('Test server', () => {
       phone: '+1NPANXXXXXX',
       message: 'A Message!'
     }
-    await expect(response).resolves.toEqual(expect.objectContaining({'+1NPANXXXXXX': participant}))
+    await expect(response).resolves.toEqual(expect.objectContaining({'14956983843c57fc152dc52ed09b0178bc222ca8d6aa745eec7440d953c6ec34': participant}))
   })
 
   test('Can receive a participant on /api/winner as a winner', async () => {

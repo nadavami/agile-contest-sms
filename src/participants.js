@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const hash = require('hasha')
 
 class Participants {
   constructor () {
@@ -9,7 +10,8 @@ class Participants {
     if (!entry.phone || !entry.message || !entry.id) {
       throw new Error('Invalid entry')
     }
-    this._participants[entry.phone] = entry
+    let participantID = hash(entry.phone, { algorithm: 'sha256' })
+    this._participants[participantID] = entry
   }
 
   async list () {
