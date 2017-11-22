@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const Participants = require('./participants')
 const Messaging = require('./messaging')
+const hash = require('hasha')
 
 let app = express()
 let participants = new Participants()
@@ -11,10 +12,12 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/incoming', (req, res) => {
   let participant = req.body.From
-  console.log('Incoming Message', JSON.stringify(participant))
   let responseText = 'Thank you for registering!'
-  participants.add(participant).catch(e => console.log(e))
-  messaging.send(participant, responseText).catch(e => console.log(e))
+  Promise.all([participants.add(participant), messaging.send(participant, responseText)])
+    .then(() => {
+      console.log('Incoming Message', hash(participant))
+    })
+    .catch(e => console.error(e))
   res.status(200)
   res.end()
 })
