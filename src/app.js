@@ -10,15 +10,11 @@ let messaging = new Messaging()
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/incoming', (req, res) => {
-  let participant = {
-    id: req.body.MessageSid,
-    phone: req.body.From,
-    message: req.body.Body
-  }
+  let participant = req.body.From
   console.log('Incoming Message', JSON.stringify(participant))
   let responseText = 'Thank you for registering!'
   participants.add(participant).catch(e => console.log(e))
-  messaging.send(participant.phone, responseText).catch(e => console.log(e))
+  messaging.send(participant, responseText).catch(e => console.log(e))
   res.status(200)
   res.end()
 })
@@ -35,7 +31,7 @@ app.use('/api/winner', async (req, res) => {
     return res.end('No winners left')
   }
   let responseText = 'Congratulations, you won!\nCome pick-up your prize!🏆'
-  messaging.send(winner.phone, responseText)
+  messaging.send(winner, responseText)
   return res.json(winner)
 })
 

@@ -88,12 +88,8 @@ describe('Test server', () => {
     await sendIncomingMessage(server.port)
 
     let response = request.get(`http://localhost:${server.port}/api/participants`).then(data => JSON.parse(data))
-    let participant = {
-      id: 'SMe37a97021a8df7632857a298b0a3e343',
-      phone: '+1NPANXXXXXX',
-      message: 'A Message!'
-    }
-    await expect(response).resolves.toEqual(expect.objectContaining({'14956983843c57fc152dc52ed09b0178bc222ca8d6aa745eec7440d953c6ec34': participant}))
+    let participant = '+1NPANXXXXXX'
+    await expect(response).resolves.toEqual([participant])
   })
 
   test('Can receive a participant on /api/winner as a winner', async () => {
@@ -104,11 +100,7 @@ describe('Test server', () => {
     await sendIncomingMessage(server.port)
 
     let response = request.get(`http://localhost:${server.port}/api/winner`).then(data => JSON.parse(data))
-    let participant = {
-      id: 'SMe37a97021a8df7632857a298b0a3e343',
-      phone: '+1NPANXXXXXX',
-      message: 'A Message!'
-    }
+    let participant = '+1NPANXXXXXX'
     let messageResponse = new Promise(resolve => {
       process.on('twilioMessage', message => resolve(message))
     })

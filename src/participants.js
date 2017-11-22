@@ -1,27 +1,24 @@
 const _ = require('lodash')
-const hash = require('hasha')
 
 class Participants {
   constructor () {
-    this._participants = {}
+    this._participants = []
   }
 
-  async add (entry) {
-    if (!entry.phone || !entry.message || !entry.id) {
+  async add (phone) {
+    if (!_.isString(phone)) {
       throw new Error('Invalid entry')
     }
-    let participantID = hash(entry.phone, { algorithm: 'sha256' })
-    this._participants[participantID] = entry
+    this._participants.push(phone)
   }
 
   async list () {
-    return {...this._participants}
+    return [...this._participants]
   }
 
   async winner () {
-    let winnerID = _.sample(Object.keys(this._participants))
-    let winner = this._participants[winnerID]
-    delete this._participants[winnerID]
+    let winner = _.sample(this._participants)
+    _.remove(this._participants, participant => participant === winner)
     return winner
   }
 }
