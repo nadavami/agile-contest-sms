@@ -31,10 +31,13 @@ app.use('/api/participants', async (req, res) => {
 app.use('/api/winner', async (req, res) => {
   let winner = await participants.winner()
   if (!winner) {
+    let errorMessage = 'No winners left'
     res.status(200)
-    return res.end('No winners left')
+    console.error(errorMessage)
+    return res.end(errorMessage)
   }
   let responseText = 'Congratulations, you won!\nCome pick-up your prize!🏆'
+  console.log('Winner selected', hash(winner))
   messaging.send(winner, responseText)
   return res.json(winner)
 })
