@@ -23,7 +23,7 @@ app.use('/api/incoming', (req, res) => {
       console.log('Incoming Message', participantHash)
       console.log('Reply Sent', participantHash)
     })
-    .catch(e => console.error(e))
+    .catch(e => console.error(e.message))
   res.type('text/plain')
   res.status(200)
   res.end()
