@@ -1,4 +1,7 @@
 /* eslint-env jest */
+jest.doMock('ioredis', () => require('ioredis-mock'))
+process.env.VCAP_SERVICES = '{ "rediscloud": [ { "name": "redis-cloud-agile", "credentials": { "hostname": "127.0.0.1", "port": 6379, "password": "" } } ] }'
+
 const Participants = require('../src/participants')
 
 describe('Test participants', () => {
@@ -40,7 +43,7 @@ describe('Test participants', () => {
   test('Cannot add an invalid participant', async () => {
     process.env.PORT = 0
     let participants = new Participants()
-    participants.add()
+    participants.add().catch(e => console.error(e))
     let participantsList = await participants.list()
     let participantsListLen = Object.keys(participantsList).length
     await expect(participantsListLen).toBe(0)
