@@ -2,11 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const Participants = require('./participants')
 const Messaging = require('./messaging')
-const hash = require('hasha')
+const hasha = require('hasha')
 
 let app = express()
 let participants = new Participants()
 let messaging = new Messaging()
+
+function hash (string) {
+  return hasha(string, { algorithm: 'sha256' })
+}
 
 app.use(bodyParser.urlencoded({extended: false}))
 
