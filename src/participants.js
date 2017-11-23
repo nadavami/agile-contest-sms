@@ -10,7 +10,10 @@ class Participants {
     if (!_.isString(phone)) {
       throw new Error('Invalid entry')
     }
-    return this._redis.sadd('participants', phone)
+    let status = await this._redis.sadd('participants', phone)
+    if (!status) {
+      throw new Error('Failed to add, entry exists')
+    }
   }
 
   async list () {

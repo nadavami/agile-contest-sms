@@ -27,6 +27,18 @@ describe('Test participants', () => {
     await expect(participantsList).toEqual([participant])
   })
 
+  test('Duplicate entries are not counted', async () => {
+    process.env.PORT = 0
+    let participants = new Participants()
+    let participant = '+1NPANXXXXXX'
+
+    participants.add(participant)
+    participants.add(participant).catch(e => console.error(e))
+
+    let participantsList = await participants.list()
+    await expect(participantsList).toEqual([participant])
+  })
+
   test('Can draw a winner and remove it', async () => {
     process.env.PORT = 0
     let participants = new Participants()
