@@ -7,6 +7,8 @@ const Participants = require('../src/participants')
 describe('Test participants', () => {
   beforeEach(() => {
     jest.resetModules()
+    console.log = jest.fn()
+    console.error = jest.fn()
   })
 
   test('Can create empty', async () => {

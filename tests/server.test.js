@@ -39,6 +39,8 @@ function sendInvalidIncomingMessage (serverPort) {
 describe('Test server', () => {
   beforeEach(() => {
     jest.resetModules()
+    console.log = jest.fn()
+    console.error = jest.fn()
   })
 
   test('Can receive / with Hello World', async () => {
