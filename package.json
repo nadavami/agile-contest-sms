@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node index.js",
     "lint": "node_modules/.bin/standard",
-    "test": "yarn lint && node_modules/.bin/jest --forceExit --no-cache && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "test": "yarn lint && node_modules/.bin/jest --forceExit --no-cache --verbose && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "jest": {
     "collectCoverage": true,
