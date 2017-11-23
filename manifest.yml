@@ -8,3 +8,4 @@ applications:
   disk_quota: 1024M
 services:
   - redis-cloud-agile
+  - papertrail-logging-agile
