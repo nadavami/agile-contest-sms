@@ -15,7 +15,9 @@ app.use('/api/incoming', (req, res) => {
   let responseText = 'Thank you for registering!'
   Promise.all([participants.add(participant), messaging.send(participant, responseText)])
     .then(() => {
-      console.log('Incoming Message', hash(participant))
+      let participantHash = hash(participant)
+      console.log('Incoming Message', participantHash)
+      console.log('Reply Sent', participantHash)
     })
     .catch(e => console.error(e))
   res.type('text/plain')
