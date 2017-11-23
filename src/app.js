@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/incoming', (req, res) => {
   let participant = req.body.From
-  let responseText = 'Thank you for registering!'
+  let responseText = 'Merci pour votre inscription!\nThank you for registering!'
   Promise.all([participants.add(participant), messaging.send(participant, responseText)])
     .then(() => {
       let participantHash = hash(participant)
