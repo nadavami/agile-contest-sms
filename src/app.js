@@ -23,7 +23,7 @@ app.use('/api/incoming', (req, res) => {
       console.log('Incoming Message', participantHash)
       console.log('Reply Sent', participantHash)
     })
-    .catch(e => console.error(e.message))
+    .catch(e => console.error('ERROR:', e.message))
   res.type('text/plain')
   res.status(200)
   res.end()
@@ -39,7 +39,7 @@ app.use('/api/winner', async (req, res) => {
   if (!winner) {
     let errorMessage = 'No winners left'
     res.status(200)
-    console.error(errorMessage)
+    console.error('ERROR:', errorMessage)
     return res.end(errorMessage)
   }
   let responseText = 'Congratulations, you won!\nCome pick-up your prize!🏆'
