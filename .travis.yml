@@ -10,8 +10,6 @@ node_js:
 jobs:
   include:
     - stage: test
-    - script:
-      - yarn test
     - stage: deploy
     - deploy:
         provider: bluemixcloudfoundry
