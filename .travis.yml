@@ -10,7 +10,9 @@ node_js:
 jobs:
   include:
     - stage: test
-    - deploy:
+    - stage: deploy
+      script: skip
+      deploy:
         provider: bluemixcloudfoundry
         skip_cleanup: true
         manifest: manifest.yml
