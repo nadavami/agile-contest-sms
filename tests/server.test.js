@@ -41,6 +41,7 @@ describe('Test server', () => {
     jest.resetModules()
     console.log = jest.fn()
     console.error = jest.fn()
+    process.removeAllListeners('twilioMessage')
   })
 
   test('Can receive / with Hello World', async () => {
