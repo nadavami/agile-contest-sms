@@ -16,10 +16,12 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/incoming', (req, res) => {
   let participant = req.body.From
-  participants.add(participant)
+  let responseText = 'Merci pour votre inscription!\nThank you for registering!'
+  Promise.all([participants.add(participant), messaging.send(participant, responseText)])
     .then(() => {
       let participantHash = hash(participant)
       console.log('Incoming Message', participantHash)
+      console.log('Reply Sent', participantHash)
     })
     .catch(e => console.error('ERROR:', e.message))
   res.type('text/plain')
