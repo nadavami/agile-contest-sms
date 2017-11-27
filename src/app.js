@@ -48,6 +48,11 @@ app.use('/api/winner', async (req, res) => {
   return res.json(winner)
 })
 
+app.use('/api/flushall', async (req, res) => {
+  await participants.flushAll()
+  return res.send('Entries flushed.')
+})
+
 app.use('/', (req, res) => {
   res.send('Hello, world!')
 })

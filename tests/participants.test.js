@@ -62,4 +62,14 @@ describe('Test participants', () => {
     let participantsListLen = Object.keys(participantsList).length
     await expect(participantsListLen).toBe(0)
   })
+
+  test('Can remove all entires', async () => {
+    process.env.PORT = 0
+    let participants = new Participants()
+    let participant = '+1NPANXXXXXX'
+    participants.add(participant)
+    await participants.flushAll()
+    let participantsList = await participants.list()
+    await expect(participantsList).toEqual([])
+  })
 })

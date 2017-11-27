@@ -31,4 +31,5 @@ While watching a conference talk, you can enter the contest by sending an SMS (a
 * `/api/incoming` - Twilio Incoming Webhook
 * `/api/participants` - List All Participants
 * `/api/winner` - Randomly Select and Show a Winner
+* `/api/flushall` - Delete all participants 
 

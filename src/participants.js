@@ -29,6 +29,10 @@ class Participants {
     return winner
   }
 
+  async flushAll () {
+    this._redis.del('participants')
+  }
+
   get _redisCredentials () {
     let bluemixServices = JSON.parse(process.env.VCAP_SERVICES)
     let redisSettings = _.find(bluemixServices.rediscloud, ['name', 'redis-cloud-agile'])

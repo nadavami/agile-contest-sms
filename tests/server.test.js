@@ -129,4 +129,16 @@ describe('Test server', () => {
     let response = request.get(`http://localhost:${server.port}/api/winner`).then(data => data)
     await expect(response).resolves.toEqual(expect.stringMatching(/no winners/i))
   })
+
+  test('Can flush entries using /api/flushall', async () => {
+    process.env.PORT = 0
+    let server = new Server()
+    server.start()
+
+    await sendIncomingMessage(server.port)
+
+    await request.get(`http://localhost:${server.port}/api/flushall`).then(data => data)
+    let response = request.get(`http://localhost:${server.port}/api/participants`).then(data => JSON.parse(data))
+    await expect(response).resolves.toEqual([])
+  })
 })
