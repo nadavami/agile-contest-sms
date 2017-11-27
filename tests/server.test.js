@@ -61,6 +61,22 @@ describe('Test server', () => {
     expect(portBeforeStart).toThrowError('Server not started')
   })
 
+  test('Can receive external payload on /api/incoming and return thank you if correct', async () => {
+    process.env.PORT = 0
+    let server = new Server()
+    server.start()
+
+    let response = sendIncomingMessage(server.port)
+    let messageResponse = new Promise(resolve => {
+      process.on('twilioMessage', message => resolve(message))
+    })
+    await expect(response).resolves.toHaveProperty('statusCode', 200)
+    await expect(messageResponse).resolves.toHaveProperty('to', '+1NPANXXXXXX')
+    await expect(messageResponse).resolves.toHaveProperty('from', '+1NPANXXXXXX')
+    await expect(messageResponse).resolves.toHaveProperty('body', expect.stringMatching(/thank you/i))
+    await expect(messageResponse).resolves.toHaveProperty('body', expect.stringMatching(/merci/i))
+  })
+
   test('Can receive external payload on /api/incoming and return error if not correct', async () => {
     process.env.PORT = 0
     let server = new Server()
