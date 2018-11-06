@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/nadavami/agile-contest-sms/badge.svg?branch=master)](https://coveralls.io/github/nadavami/agile-contest-sms?branch=master)
 
 
-While watching a conference talk, you can enter the contest by sending an SMS (a text) to `(450) 600-3601`. You will receive a response that you've been entered. By the end of the talk a winner will be selected and notified both by SMS. 
+While watching a conference talk, you can enter the contest by sending an SMS (a text) to `(438) 600-2225`. You will receive a response that you've been entered. By the end of the talk a winner will be selected and notified both by SMS.
 
 ## Presentation
 The presentation can be [found here](presentation.pdf) 
