@@ -35,13 +35,8 @@ class Participants {
 
   get _redisCredentials () {
     let bluemixServices = JSON.parse(process.env.VCAP_SERVICES)
-    let redisSettings = _.find(bluemixServices.rediscloud, ['name', 'redis-cloud-agile'])
-    let credentials = {
-      host: redisSettings.credentials.hostname,
-      port: redisSettings.credentials.port,
-      password: redisSettings.credentials.password
-    }
-    return credentials
+    let redisSettings = _.find(bluemixServices['compose-for-redis'], ['name', 'redis-cloud-agile'])
+    return redisSettings.uri
   }
 }
 
