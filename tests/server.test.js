@@ -1,6 +1,6 @@
 /* eslint-env jest */
 jest.doMock('ioredis', () => require('ioredis-mock'))
-process.env.VCAP_SERVICES = '{ "rediscloud": [ { "name": "redis-cloud-agile", "credentials": { "hostname": "127.0.0.1", "port": 6379, "password": "" } } ] }'
+process.env.VCAP_SERVICES = '{ "compose-for-redis": [ { "name": "redis-cloud-agile", "credentials": { "uri": "redis://user:pass@127.0.0.1:6379" } } ] }'
 
 const Server = require('../src/server')
 const request = require('request-promise-native')
