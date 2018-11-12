@@ -3,7 +3,7 @@ const Redis = require('ioredis')
 
 class Participants {
   constructor () {
-    this._redis = new Redis(this._redisCredentials)
+    this._redis = new Redis(this._redisURI)
   }
 
   async add (phone) {
@@ -33,10 +33,10 @@ class Participants {
     this._redis.del('participants')
   }
 
-  get _redisCredentials () {
+  get _redisURI () {
     let bluemixServices = JSON.parse(process.env.VCAP_SERVICES)
     let redisSettings = _.find(bluemixServices['compose-for-redis'], ['name', 'redis-cloud-agile'])
-    return redisSettings.uri
+    return redisSettings.credentials.uri
   }
 }
 
