@@ -3,7 +3,7 @@ const Redis = require('ioredis')
 
 class Participants {
   constructor () {
-    this._redis = new Redis(this._redisURI)
+    this._redis = new Redis(this._redisURI, { tls: true })
   }
 
   async add (phone) {
