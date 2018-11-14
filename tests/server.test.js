@@ -74,7 +74,6 @@ describe('Test server', () => {
     await expect(messageResponse).resolves.toHaveProperty('to', '+1NPANXXXXXX')
     await expect(messageResponse).resolves.toHaveProperty('from', '+1NPANXXXXXX')
     await expect(messageResponse).resolves.toHaveProperty('body', expect.stringMatching(/thank you/i))
-    await expect(messageResponse).resolves.toHaveProperty('body', expect.stringMatching(/merci/i))
   })
 
   test('Can receive external payload on /api/incoming and return error if not correct', async () => {

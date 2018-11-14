@@ -21,9 +21,9 @@ app.use('/api/incoming', (req, res) => {
     let participantHash = hash(participant)
     console.log('Incoming Message', participantHash)
     console.log('Reply Sent', participantHash)
-    messaging.send(participant, 'Merci pour votre inscription!\nThank you for registering!')
+    messaging.send(participant, 'Thank you for registering! Good luck! 🤞')
   }).catch(e => {
-    messaging.send(participant, 'You can only enter the contest once!').catch(e => {
+    messaging.send(participant, 'You can only enter the contest once!🧐').catch(e => {
       console.error('ERROR:', e.message)
     })
     console.error('ERROR:', e.message)
@@ -46,7 +46,7 @@ app.use('/api/winner', async (req, res) => {
     console.error('ERROR:', errorMessage)
     return res.end(errorMessage)
   }
-  let responseText = 'Congratulations, you won!\nCome pick-up your prize!🏆'
+  let responseText = 'Congratulations, you won!\nCome pick-up your prize at the Bell booth!🏆'
   console.log('Winner selected', hash(winner))
   messaging.send(winner, responseText)
   return res.json(winner)
