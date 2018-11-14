@@ -16,14 +16,18 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/incoming', (req, res) => {
   let participant = req.body.From
-  let responseText = 'Merci pour votre inscription!\nThank you for registering!'
-  Promise.all([participants.add(participant), messaging.send(participant, responseText)])
-    .then(() => {
-      let participantHash = hash(participant)
-      console.log('Incoming Message', participantHash)
-      console.log('Reply Sent', participantHash)
+
+  participants.add(participant).then(() => {
+    let participantHash = hash(participant)
+    console.log('Incoming Message', participantHash)
+    console.log('Reply Sent', participantHash)
+    messaging.send(participant, 'Merci pour votre inscription!\nThank you for registering!')
+  }).catch(e => {
+    messaging.send(participant, 'You can only enter the contest once!').catch(e => {
+      console.error('ERROR:', e.message)
     })
-    .catch(e => console.error('ERROR:', e.message))
+    console.error('ERROR:', e.message)
+  })
   res.type('text/plain')
   res.status(200)
   res.end()
